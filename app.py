@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-from utils import load_and_prep_image, predict_json, classes_and_models
+from utils import load_and_prep_image, predict_json, get_classes_and_models
 import SessionState
  
 st.title("My first App in Streamlit.")
@@ -20,23 +20,14 @@ def makePrediction(image, model, class_name):
 # Pick the model version
 choose_model = st.sidebar.selectbox(
 	"Pick model to use",
-	("Model 1 : ",
-	 "Model 2 : ",
-	 "Model 3 : ")
+	# model name writing style - 'Model_number :' - after this can add discription. 
+	("Model_1 : ",
+	 "Model_2 : ",
+	 "Model_3 : ")
 )
 
 # Model choice logic
-#CLASSES, MODEL = classes_and_models(choose_model)
-
-if choose_model == "Model 1 : ":
-	CLASSES = classes_and_models
-	MODEL = classes_and_models
-elif choose_model == "Model 2 : ":
-	CLASSES = classes_and_models
-	MODEL = classes_and_models
-else:
-	CLASSES = classes_and_models
-	MODEL = classes_and_models
+CLASSES, MODEL = get_classes_and_models(choose_model)
 
 # Display info about model and classes
 if st.checkbox("Show classes"):
@@ -64,8 +55,7 @@ if pred_button:
 # If pressed
 if session_state.pred_button:
 	session_state.image, session_state.pred_class, session_state.pred_conf = makePrediction(session_state.uploaded_image, model=MODEL, class_name=CLASSES)
-	st.write("Prediction : {},\
-			 Confidance : {}".format(session_state.pred_class, session_state.pred_conf))
+	st.write("Prediction : {},\nConfidance : {}".format(session_state.pred_class, session_state.pred_conf))
 
 	# Feedback loop
 	session_state.feedback = st.selectbox("Correct?", ("Yes", "No"))
