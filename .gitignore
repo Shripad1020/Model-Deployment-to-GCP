@@ -1,5 +1,13 @@
 # Python
 __pycache__/
+image_classification.py
 
-#keys
+# keys
 *.json
+
+# zip
+*.zip
+*.rar
+
+# models
+efficientnet_model_1_10_classes/
