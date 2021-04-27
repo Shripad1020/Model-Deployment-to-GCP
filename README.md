@@ -16,13 +16,20 @@ If you don't have credits (you get $300USD when you first sign up), you will be 
 If you go through the steps below, you should end up with a [Streamlit](http://streamlit.io/)-powered web application for classifying images of food (deployed on Google Cloud if you want).
 
 The app running locally - uploading an image, basic foundation of app is completed.:
-![app demo](https://github.com/Shripad1020/Model-Deployment-to-GCP/blob/master/images/app_progress.png)
+![app demo](https://github.com/Shripad1020/Model-Deployment-to-GCP/blob/master/images/app_progress_1.png)
 
 ## Steps to follow
 
 We're going to tackle this in 3 parts:
-1. Getting the app running (running Streamlit on our local machines) - ***work in progress***
+1. Getting the app running (running Streamlit on our local machines) - ***Completed***
 2. Deploying a machine learning model to AI Platform (getting Google Cloud to host one of our models)
 3. Deploying our app to App Engine (getting our app on the internet)
 
 ## To do
+- [ ] Getting the app running
+  - [x] Run app on local machine. i.e. predictions
+  - [x] Train model
+  - [ ] Complete logger method
+  - [ ] Use try except for KeyError
+- [ ] Deploying a machine learning model
+- [ ] Deploying our app to App Engines
