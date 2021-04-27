@@ -1,4 +1,4 @@
-def load_and_prep_image():
+def load_and_prep_image(image):
 	pass
 
 def predict_json():
