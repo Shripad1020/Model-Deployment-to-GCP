@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 # dummy base prediction classes
 base_classes = ['fried_rice',
 					'hamburger',
@@ -18,8 +20,15 @@ models = {
 	# add newer versions of models
 }
 
-def load_and_prep_image(image):
-	pass
+def load_and_prep_image(image, img_shape, rescale=False):
+	img = tf.io.decode_image(image, channels=3)
+	# Resize the image
+	img = tf.image.resize(img, [img_shape, img_shape])
+	# Rescale the image
+	if rescale:
+		return img/255.
+	else:
+		return img
 
 def predict_json():
 	pass
