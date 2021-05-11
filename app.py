@@ -1,12 +1,13 @@
+import os
 import streamlit as st
 import tensorflow as tf
-from utils import load_and_prep_image, predict, get_classes_and_models, update_logger
+from utils import load_and_prep_image, predict_json, get_classes_and_models, update_logger
 import SessionState
  
 # Setup environment credentials (you'll need to change these)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".json" # change for your GCP key
-PROJECT = "" # change for your GCP project
-REGION = "" # change for your GCP region (where your model is hosted)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:\\Robosoft\\Git\\Model-Deployment-to-GCP\\iot-img-cp-211e57393ad2.json" # change for your GCP key
+PROJECT = "iot-img-cp" # change for your GCP project
+REGION = "us-central1" # change for your GCP region (where your model is hosted)
 
 st.title("Streamlit Web App for Image classification")
 st.header("Identify what's in your food photo!")
@@ -15,21 +16,18 @@ st.header("Identify what's in your food photo!")
 def make_prediction(image, model, class_name):		
 	image = load_and_prep_image(image, 224)
 	image = tf.cast(tf.expand_dims(image, axis=0), tf.int16)
-    preds = predict_json(project=PROJECT,
-                         region=REGION,
-                         model=model,
-                         instances=image)
-    pred_class = class_names[tf.argmax(preds[0])]
-    pred_conf = tf.reduce_max(preds[0])
+	preds = predict_json(project=PROJECT, region=REGION, model=model, instances=image)
+	pred_class = class_name[tf.argmax(preds[0])]
+	pred_conf = tf.reduce_max(preds[0])
 
-    return image, pred_class, pred_conf
+	return image, pred_class, pred_conf
 
 # Pick the model version
 choose_model = st.sidebar.selectbox(
 	"Pick model to use",
 	# model name writing style - 'Model_number :' - after this can add discription. 
 	("Model_1 : EfficientNet - 10 classes",
-	 "Model_2 : Not available",
+	 "Model_2 : EfficientNet - 11 classes + Non-Food",
 	 "Model_3 : Not available")
 )
 

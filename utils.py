@@ -3,28 +3,35 @@ import googleapiclient.discovery
 from google.api_core.client_options import ClientOptions
 
 # dummy base prediction classes
-base_classes = ['chicken_curry',
-				 'chicken_wings',
-				 'fried_rice',
-				 'grilled_salmon',
-				 'hamburger',
-				 'ice_cream',
-				 'pizza',
-				 'ramen',
-				 'steak',
-				 'sushi']
+base_classes = ['Chicken_curry',
+				'Chicken_wings',
+				'Fried_rice',
+				'Grilled_salmon',
+				'Hamburger',
+				'Ice_cream',
+				'Pizza',
+				'Ramen',
+				'Steak',
+				'Sushi']
 
 # updated classes will add here
-updated_classes = []
+updated_classes = ['Donuts',
+				'Not-Food']
+
+total_classes = base_classes + updated_classes
 
 models = {
 	# default version of model
 	"model_1": {
 		"classes": base_classes,
 		# model name - type of model, number, number of classes included
-		"model_name": "Model_name - model_number - number of clases"
-	}
+		"model_name": "efficientnet_model_1_10_classes"
+	},
 	# add newer versions of models
+	"model_2": {
+		"classes": sorted(total_classes),
+		"model_name": "efficientnet_model_2_12_classes"
+	}
 }
 
 def load_and_prep_image(image, img_shape, rescale=False):
@@ -46,7 +53,7 @@ def predict_json(project, region, model, instances, version=None):
             your deployed model expects as inputs. Values should be datatypes
             convertible to Tensors, or (potentially nested) lists of datatypes
             convertible to Tensors.
-        version (str): version of the model to target.
+        version	 (str): version of the model to target.
     Returns:
         Mapping[str: any]: dictionary of prediction results defined by the 
             model.
